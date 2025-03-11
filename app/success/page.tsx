@@ -13,22 +13,22 @@ export default async function SuccessPage({
 }: {
   searchParams: { session_id?: string };
 }) {
-  //if (!searchParams.session_id) redirect('/');
+  if (!searchParams.session_id) redirect('/');
 
   try {
-    // const session = await stripe.checkout.sessions.retrieve(
-    //   searchParams.session_id
-    // );
+    const session = await stripe.checkout.sessions.retrieve(
+      searchParams.session_id
+    );
     
-    // if (session.payment_status === 'paid') {
-    //   const donationAmount = parseFloat(session.metadata?.donationAmount || '0');
-    //   const tipAmount = donationAmount * parseFloat(session.metadata?.tipPercentage || '0');
-    //   const comment = session.metadata?.comment || '';
+    if (session.payment_status === 'paid') {
+      const donationAmount = parseFloat(session.metadata?.donationAmount || '0');
+      const tipAmount = donationAmount * parseFloat(session.metadata?.tipPercentage || '0');
+      const comment = session.metadata?.comment || '';
 
-    //   db.prepare(
-    //     'INSERT INTO donations (amount, tip, comment) VALUES (?, ?, ?)'
-    //   ).run(donationAmount, tipAmount, comment);
-    // }
+      db.prepare(
+        'INSERT INTO donations (amount, tip, comment) VALUES (?, ?, ?)'
+      ).run(donationAmount, tipAmount, comment);
+    }
 
     return (
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center p-4">
@@ -48,7 +48,7 @@ export default async function SuccessPage({
             in the lives of people affected by the crisis in Ukraine.
           </p>
           <Link href="/">
-            <button className="bg-yellow-400 hover:bg-yellow-500 text-blue-900 px-8 py-3 rounded-xl font-bold transition-all cursor-pointer">
+            <button className="bg-yellow-400 hover:bg-yellow-500 text-blue-900 px-8 py-3 rounded-xl font-bold transition-all">
               Return Home
             </button>
           </Link>
