@@ -43,7 +43,7 @@ export const ShareModal = ({ show, onClose }: { show: boolean, onClose: () => vo
               />
               <button
                 onClick={copyToClipboard}
-                className="w-full md:w-auto bg-blue-100 text-blue-900 px-4 md:px-6 py-3 md:py-4 rounded-xl hover:bg-blue-200 flex items-center justify-center gap-2 md:gap-3 text-base md:text-lg"
+                className="cursor-pointer w-full md:w-auto bg-blue-100 text-blue-900 px-4 md:px-6 py-3 md:py-4 rounded-xl hover:bg-blue-200 flex items-center justify-center gap-2 md:gap-3 text-base md:text-lg"
               >
                 <FiLink className="shrink-0" />
                 {isCopied ? 'Copied!' : 'Copy Link'}
