@@ -15,23 +15,23 @@ export default async function SuccessPage({
 }: {
   searchParams: paramsType;
 }) {
-  const { session_id } = await searchParams; 
-  if (!session_id) redirect('/');
+  // const { session_id } = await searchParams; 
+  // if (!session_id) redirect('/');
 
   try {
-    const session = await stripe.checkout.sessions.retrieve(
-      session_id!
-    );
+    // const session = await stripe.checkout.sessions.retrieve(
+    //   session_id!
+    // );
     
-    if (session.payment_status === 'paid') {
-      const donationAmount = parseFloat(session.metadata?.donationAmount || '0');
-      const tipAmount = donationAmount * parseFloat(session.metadata?.tipPercentage || '0');
-      const comment = session.metadata?.comment || '';
+    // if (session.payment_status === 'paid') {
+    //   const donationAmount = parseFloat(session.metadata?.donationAmount || '0');
+    //   const tipAmount = donationAmount * parseFloat(session.metadata?.tipPercentage || '0');
+    //   const comment = session.metadata?.comment || '';
 
-      db.prepare(
-        'INSERT INTO donations (amount, tip, comment) VALUES (?, ?, ?)'
-      ).run(donationAmount, tipAmount, comment);
-    }
+    //   db.prepare(
+    //     'INSERT INTO donations (amount, tip, comment) VALUES (?, ?, ?)'
+    //   ).run(donationAmount, tipAmount, comment);
+    // }
 
     return (
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center p-4">

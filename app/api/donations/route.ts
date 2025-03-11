@@ -4,7 +4,7 @@ import db from '@/lib/db';
 // Named export for GET method
 export async function GET() {
   try {
-    const donations = db.prepare('SELECT * FROM donations ORDER BY created_at DESC').all();
+    //const donations = db.prepare('SELECT * FROM donations ORDER BY created_at DESC').all();
     //return NextResponse.json(donations);
     return NextResponse.json([
       { id: 1, amount: 50, comment: "Support for Ukraine", created_at: "2025-03-01" },
