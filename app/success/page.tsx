@@ -8,16 +8,19 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   //apiVersion: '2023-08-16',
 });
 
+type paramsType = Promise<{ session_id?: string }>;
+
 export default async function SuccessPage({
   searchParams,
 }: {
-  searchParams: { session_id?: string };
+  searchParams: paramsType;
 }) {
-  if (!searchParams.session_id) redirect('/');
+  const { session_id } = await searchParams; 
+  if (!session_id) redirect('/');
 
   try {
     const session = await stripe.checkout.sessions.retrieve(
-      searchParams.session_id
+      session_id!
     );
     
     if (session.payment_status === 'paid') {
@@ -56,6 +59,7 @@ export default async function SuccessPage({
       </div>
     );
   } catch (err) {
+    //console.log(err);
     redirect('/');
   }
 }
